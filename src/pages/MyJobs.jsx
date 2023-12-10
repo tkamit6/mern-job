@@ -10,7 +10,7 @@ export default function MyJobs() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/my-jobs/mail@mail.com')
+        fetch('https://mern-job-api.vercel.app/my-jobs/mail@mail.com')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
