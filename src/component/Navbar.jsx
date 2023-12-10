@@ -17,8 +17,8 @@ export default function Navbar() {
         { path: '/post-job', title: 'Post a Job' },
     ]
     return (
-        <header className='max-w-screen-2xl container mx-auto xl:px-24 px-4 sticky w-[100%] top-0 z-10'>
-            <nav className='flex justify-between items-center py-4 bg-white'>
+        <header className='max-w-screen-2xl container mx-auto bg-white xl:px-24 px-4 sticky w-[100%] top-0 z-10'>
+            <nav className='flex justify-between items-center py-4'>
                 <Link to='/' className='text-2xl text-black'>Job Portal</Link>
 
                 <ul className='hidden md:flex gap-12'>
