@@ -10,7 +10,7 @@ export default function Card({ data }) {
         <section className='card'>
         {/* <div className=''> */}
             <Link to={'/'} className='md:grid md:grid-cols-6 flex gap-4 flex-col sm:flex-row items-start'>
-            <div className='w-24 h-24 col-span-1'>
+            <div className='col-span-1'>
                 <img src={`${companyLogo}`} alt='logo' className=' h-10 object-cover' />
             </div>
                 <div className='col-span-5 card-details'>
