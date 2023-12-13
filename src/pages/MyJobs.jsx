@@ -43,7 +43,7 @@ export default function MyJobs() {
 
     const handleDelete = (id) => {
         setIsLoading(true);
-        fetch(`http://localhost:5000/job/${id}`, {
+        fetch(`https://mern-job-api.vercel.app/job/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
