@@ -9,7 +9,7 @@ export default function Card({ data }) {
     return (
         <section className='card'>
             <Link to={'/'} className='flex gap-4 flex-col sm:flex-row items-start'>
-            <div className='w-full'>
+            <div className='w-24 h-24'>
                 <img src={`${companyLogo}`} alt='logo' className=' h-10 object-cover' />
             </div>
                 <div className='card-details'>
