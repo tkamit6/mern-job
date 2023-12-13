@@ -9,9 +9,9 @@ export default function Card({ data }) {
     return (
         <section className='card'>
             <Link to={'/'} className='flex gap-4 flex-col sm:flex-row items-start'>
-            <div className='w-24 h-24'>
+            {/* <div className='w-24 h-24'> */}
                 <img src={`${companyLogo}`} alt='logo' className=' h-10 object-cover' />
-            </div>
+            {/* </div> */}
                 <div className='card-details'>
                     <h4 className='text-primary mb-1'>{companyName}</h4>
                     <h3 className='text-lg font-semibold mb-2'>{jobTitle}</h3>
