@@ -1,27 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import MyContext from '../ContextAPI/MyContextProvider';
 
 export default function MyJobs() {
     const [jobs, setJobs] = useState([]);
     const [SeacrhText, setSeacrhText] = useState();
     const [isloading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const contextValue = useContext(MyContext);
+    console.log(contextValue);
+    const { userData } = contextValue;
+
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('https://mern-job-api.vercel.app/my-jobs/mail@mail.com')
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setJobs(data);
-                setIsLoading(false); // Assuming you want to set loading to false after fetching data
-            })
-            .catch(err => {
-                console.log(err);
-                setIsLoading(false); // Handle error and set loading to false
-            });
-    }, []);
+        {
+            userData ? 
+            fetch(`https://mern-job-api.vercel.app/my-jobs/${userData.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    // console.log(data);
+                    setJobs(data);
+                    setIsLoading(false); // Assuming you want to set loading to false after fetching data
+                })
+                .catch(err => {
+                    console.log(err);
+                    setIsLoading(false); // Handle error and set loading to false
+                }) : <></>
+        }
+    }, [userData]);
 
 
     const handleSearch = () => {
@@ -111,7 +119,7 @@ export default function MyJobs() {
                                 </thead>
 
                                 {
-                                    isloading ? <h6>Loading</h6> : (
+                                    isloading ? <h6>Loading... <br/> Login to View Your posted jobs </h6> : (
                                         <tbody>
 
                                             {

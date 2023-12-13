@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
 import { Button } from '@mui/material';
+import { Badge, Avatar, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, AvatarIcon } from "@nextui-org/react";
+import MyContext from '../ContextAPI/MyContextProvider';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const ContextValue = useContext(MyContext);
+    const { isLoggedIn, setLoggedIn, handleLogOut, userData } = ContextValue;
+    console.log(ContextValue)
+
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
     }
@@ -13,7 +19,7 @@ export default function Navbar() {
     const navItems = [
         { path: '/', title: 'Start a Search' },
         { path: '/my-jobs', title: 'My Jobs' },
-        { path: '/salary', title: 'Salary Estimate' },
+        { path: '/Salary', title: 'Salary Estimate' },
         { path: '/post-job', title: 'Post a Job' },
     ]
     return (
@@ -35,8 +41,37 @@ export default function Navbar() {
                     }
                 </ul>
                 <div className='text-base text-primary font-medium space-x-5 hidden md:block'>
-                    <Button onClick={() => navigate('/login')} sx={{border:'1px solid blue '}} className='!py-2 !px-5 !rounded'>Login</Button>
-                    <Button to='/sign-up' className='!py-2 !px-5 !border !rounded !bg-blue !text-white'>Sign Up</Button>
+                    {
+                        isLoggedIn ? <Dropdown placement="bottom-end">
+                            <DropdownTrigger>
+                                <Avatar
+                                    icon={<AvatarIcon />}
+                                    isBordered
+                                    as='button'
+                                    classNames={{
+                                        base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B]",
+                                        icon: "text-black/80",
+                                    }}
+                                />
+                            </DropdownTrigger>
+                            <DropdownMenu aria-label="Profile Actions" variant="flat">
+                                <DropdownItem key="profile" className="h-14 gap-2">
+                                    <p className="font-semibold">Signed in as</p>
+                                    <p className="font-semibold">{userData.email}</p>
+                                </DropdownItem>
+
+                                <DropdownItem onClick={handleLogOut} key="logout" color="danger">
+                                    Log Out
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown> : (<>
+
+                            <Button onClick={() => navigate('/login')} sx={{ border: '1px solid blue ' }} className='!py-2 !px-5 !rounded'>Login</Button>
+                            <Button to='/sign-up' className='!py-2 !px-5 !border !rounded !bg-blue !text-white'>Sign Up</Button>
+                        </>
+
+                        )
+                    }
                 </div>
 
 

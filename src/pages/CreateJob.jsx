@@ -17,7 +17,7 @@ export default function CreateJob() {
         console.log(data)
 
         if (!data.postedBy == '') {
-            fetch('http://localhost:5000/post-job', {
+            fetch('https://mern-job-api.vercel.app/post-job', {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'

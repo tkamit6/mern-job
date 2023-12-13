@@ -5,8 +5,12 @@ import CreateJob from "../pages/CreateJob";
 import MyJobs from "../pages/MyJobs";
 import UpdateJob from "../pages/UpdateJob";
 import Login from "../component/Login";
+import MyContext from "../ContextAPI/MyContextProvider";
+import { useContext } from "react";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
+
     {
         path: "/",
         element: <App />,
@@ -18,8 +22,8 @@ const router = createBrowserRouter([
                 path: "/about", element: <div>About</div>,
             },
             {
-                path: '/post-job', element: <CreateJob />,
-            },,
+                path: '/post-job', element: <PrivateRoute Component={CreateJob} />,
+            }, ,
             {
                 path: '/my-jobs', element: <MyJobs />,
             },
@@ -28,7 +32,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/edit-jobs/:id', element: <UpdateJob />,
-                loader: ({params}) => fetch(`http://localhost:5000/all-jobs${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/all-jobs${params.id}`)
             },
         ]
     },

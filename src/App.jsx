@@ -3,7 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Outlet } from 'react-router-dom'
-import Navbar from './component/Navbar'
+import Navbar from './component/Navbar';
+import { NextUIProvider } from "@nextui-org/react";
+import { MyProvider } from './ContextAPI/MyContextProvider'
 
 const data = [1, 3, 4, 33, 22, 56]
 function App() {
@@ -19,11 +21,14 @@ function App() {
   // console.log(sum(1, 2, 3, 4));
 
   return (
-    <div className=''>
-      <Navbar />
-      <Outlet />
-
-    </div>
+    <MyProvider>
+      <NextUIProvider>
+        <div className=''>
+          <Navbar />
+          <Outlet />
+        </div>
+      </NextUIProvider>
+    </MyProvider>
   )
 }
 
