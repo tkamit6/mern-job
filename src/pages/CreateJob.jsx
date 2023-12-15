@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import CreatableSelect from 'react-select/creatable'
+import CreatableSelect from 'react-select/creatable';
+import MyContext from '../ContextAPI/MyContextProvider';
 
 export default function CreateJob() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -11,6 +12,9 @@ export default function CreateJob() {
         watch,
         formState: { errors },
     } = useForm()
+
+    const contextValue = useContext(MyContext);
+    const { userData } = contextValue;
 
     const onSubmit = (data) => {
         data.skills = selectedOption;
@@ -137,7 +141,7 @@ export default function CreateJob() {
 
                     <div className='w-full'>
                         <label className='block mb-2 text-lg'>Job Posted By</label>
-                        <input type="email" placeholder="Ex: mail@mail.com " {...register("postedBy")} className='block w-full flex-1 border-1 bg-white py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6 focus:ring-2 ring-blue rounded-sm' />
+                        <input type="email" placeholder="Ex: mail@mail.com " value={userData.email} {...register("postedBy")} className='block w-full flex-1 border-1 bg-white py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6 focus:ring-2 ring-blue rounded-sm' />
                     </div>
                     <input type="submit" className='mt-12 block bg-blue text-white font-semibold px-8 py-2 rounded-sm cursor-pointer ' />
                 </form>
