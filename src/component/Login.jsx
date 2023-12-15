@@ -38,7 +38,7 @@ export default function Login() {
     return (
         <div className='h-screen w-full items-center justify-center flex'>
             {
-                useName ? `Welcome ${useName}` : <Button variant='contained' onClick={handleLogin} className='!py-2 !px-8 !bg-blue !text-white !gap-4' > {useName} <FcGoogle /> Login</Button>
+                useName ? `Welcome ${useName}` : <Button variant='outlined' onClick={handleLogin} className='!py-2 !px-8 !text-white !gap-4' > {useName} <FcGoogle /> Login</Button>
             }
 
         </div>
