@@ -19,7 +19,7 @@ export const MyProvider = ({ children }) => {
     signOut(auth).then(() => {
       setLoggedIn(false);
       console.log('out');
-      userData
+      setUserData(null)
       // Sign-out successful.
     }).catch((error) => {
       // An error happened.
