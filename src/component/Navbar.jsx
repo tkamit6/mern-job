@@ -45,7 +45,8 @@ export default function Navbar() {
                         isLoggedIn ? <Dropdown placement="bottom-end">
                             <DropdownTrigger>
                                 <Avatar
-                                    icon={<AvatarIcon />}
+                                    // icon={<AvatarIcon />}
+                                    src={userData.photoURL}
                                     isBordered
                                     as='button'
                                     classNames={{
