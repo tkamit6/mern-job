@@ -30,67 +30,46 @@ export default function Home() {
     setQuery(e.target.value)
   }
 
-  // filter jobs by title
-  const filteredItems = jobs.filter((job) =>
-    job.jobTitle.toLowerCase().indexOf(query.toLowerCase()) !== -1
-  )
-
-  // radio button base filtering
-  const handleChange = (e) => {
-    setSelectedCategory(e.target.value);
-  }
-
-  //button base filtering
-  const handleClick = (e) => {
-    setSelectedCategory(e.target.value);
-  }
-
-  //calculate the idex range
-  const calculatePageRange = () => {
-    const startIndex = (currentPage - 1) * itemPerPage;
-    const endPage = startIndex + itemPerPage;
-    return { startIndex, endPage };
-  }
-
-  //function for next page
-  // const nextPage = () => {
-  //   if (currentPage < Math.ceil(filteredItems.length / itemPerPage)) {
-  //     setCurrentPage(currentPage + 1)
-  //   }
-  // }
-
-  //function for prev page
-  // const prevPage = () => {
-  //   if (currentPage > 1)
-  //     setCurrentPage(currentPage - 1);
-  // }
-
-  // main function
   const filteredData = (jobs, selected, query) => {
-    let filteredJobs = jobs;
-
-    // filtering input item
+    let filteredJobs = [...jobs]; // Create a copy of the jobs array
+  
+    // Filtering by job title if a search query is provided
     if (query) {
-      filteredJobs = filteredItems;
+      filteredJobs = filteredJobs.filter((job) =>
+        job.jobTitle.toLowerCase().includes(query.toLowerCase())
+      );
     }
-
-
-
-    // category filtering
+  
+    // Category-based filtering based on selected criteria
     if (selected) {
-      filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experienceLevel, salaryType, employmentType, postingDate }) => {
-        postingDate >= selected
-      })
+      filteredJobs = filteredJobs.filter((job) => {
+        // Check each selected criteria and filter accordingly
+        const isLocationMatch = selected.jobLocation ? job.jobLocation === selected.jobLocation : true;
+        const isMaxPriceMatch = selected.maxPrice ? job.maxPrice <= selected.maxPrice : true;
+        const isExperienceLevelMatch = selected.experienceLevel ? job.experienceLevel === selected.experienceLevel : true;
+        const isSalaryTypeMatch = selected.salaryType ? job.salaryType === selected.salaryType : true;
+        const isEmploymentTypeMatch = selected.employmentType ? job.employmentType === selected.employmentType : true;
+        const isPostingDateMatch = selected.postingDate ? new Date(job.postingDate) >= new Date(selected.postingDate) : true;
+  
+        // Return true if all conditions are met
+        return (
+          isLocationMatch &&
+          isMaxPriceMatch &&
+          isExperienceLevelMatch &&
+          isSalaryTypeMatch &&
+          isEmploymentTypeMatch &&
+          isPostingDateMatch
+        );
+      });
     }
-
+  
+    // Implement pagination logic if needed
     // const { startIndex, endPage } = calculatePageRange();
     // filteredJobs = filteredJobs.slice(startIndex, endPage);
-
-    return filteredJobs.map((data, i) =>
-      <Card key={i} data={data} />
-    )
-
-  }
+  
+    return filteredJobs;
+  };
+  
 
   const result = filteredData(jobs, selectedCategory, query);
 
